@@ -1,0 +1,55 @@
+
+img{
+    height: 150px;
+    height: 150px;
+}
+
+.container{
+height: 500px;
+width: 100%;
+margin-top: 30px;
+background-color: rgba(236, 234, 234, 0.849);
+position: relative;
+border: 2px solid black;
+
+}
+
+table {
+    position: relative;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: black;
+    color: #ddd;
+   
+}
+.box{
+    width: 60%;
+    margin-left: 5%;
+    font-weight: 500;
+    font-size: larger;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 2px solid #ddd; /* Adds a line under each row */
+}
+
+thead th {
+    border-bottom: 2px solid #f8f7f7; /* Adds a thicker line under the header */
+}
+
+tbody tr:last-child td {
+    border-bottom: none; /* Removes the border from the last row */
+}
+
+.img-fluid {
+    max-width: 100px; /* Limits the image width */
+    height: auto;
+}
+
+
+
+
+
