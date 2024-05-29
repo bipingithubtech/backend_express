@@ -21,7 +21,7 @@ export default class usercontroller {
       const error = "This is invalid user";
       return res.render("login", { errorMessage: error });
     }
-    req.session.username = email;
+    req.session.userEmail = email;
 
     const products = await ProductModel.get();
 
