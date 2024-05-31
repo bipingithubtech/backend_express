@@ -21,7 +21,7 @@ export default class ProductModel {
         imageUrl
       );
 
-      prductObject.push(newProduct);
+      return prductObject.push(newProduct);
     } catch (error) {
       console.error("Error adding product:", error);
     }
@@ -32,13 +32,12 @@ export default class ProductModel {
   }
   static async updatepro(objId) {
     const index = prductObject.findIndex((p) => p.id == objId.id);
-    const { name, decs, price, imageUrl } = objId;
-    (prductObject[index] = name), decs, price, imageUrl;
+    return (prductObject[index] = objId);
   }
 
   static async deleteItem(id) {
     const index = prductObject.findIndex((p) => p.id == id);
-    prductObject.splice(index, 1);
+    return prductObject.splice(index, 1);
   }
 }
 var prductObject = [

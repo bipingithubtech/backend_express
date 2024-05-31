@@ -38,18 +38,31 @@
             <li class="nav-item">
               <a class="nav-link" href="/new">Add_Product</a>
             </li>
+          
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">logout</a>
+              </li>
+           
             <li class="nav-item">
               <a class="nav-link" href="/register">Register</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/login">Login</a>
             </li>
+        
+           
           </ul>
         </div>
       </div>
     </nav>
 
     <div class="container">
+      <% if(locals.lastTime){ %>
+        <div class="alert alert-primary" role="alert">
+       your last time visted <%=locals.lastTime%>
+        </div>
+    <%  }%>
+      
       <table>
         <thead>
           <tr>

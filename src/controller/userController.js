@@ -16,15 +16,28 @@ export default class usercontroller {
 
   async postlogin(req, res) {
     const { email, password } = req.body;
-    const user = UserModel.login(email, password);
+    const user = await UserModel.login(email, password);
     if (!user) {
       const error = "This is invalid user";
       return res.render("login", { errorMessage: error });
+    } else {
+      req.session.userEmail = email;
+
+      const products = await ProductModel.get();
+
+      res.render("index", { products, userEmail: req.session.userEmail });
     }
-    req.session.userEmail = email;
-
-    const products = await ProductModel.get();
-
-    res.render("index", { products });
+  }
+  logout(req, res) {
+    // On logout we will destroy the session
+    req.session.destroy((err) => {
+      if (err) {
+        console.log("Error while destroying session:", err);
+        res.status(500).send("An error occurred while logging out.");
+      } else {
+        res.redirect("/login");
+      }
+    });
+    res.clearCookie("lastTime");
   }
 }

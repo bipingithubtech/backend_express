@@ -5,7 +5,7 @@ export default class ProductController {
     try {
       const products = await ProductModel.get();
       console.log(products); // Add this line to verify the data
-      res.render("index", { products }); // Correctly pass the products array
+      res.render("index", { products, userEmail: req.session.userEmail }); // Correctly pass the products array
     } catch (error) {
       console.error("Error fetching products:", error);
       res.status(500).send("Internal Server Error");
@@ -14,7 +14,10 @@ export default class ProductController {
 
   async getAddForm(req, res) {
     try {
-      res.render("Form", { errorMessage: null });
+      res.render("Form", {
+        errorMessage: null,
+        userEmail: req.session.userEmail,
+      });
     } catch (error) {
       console.error("Error while rendering the add product form:", error);
     }
@@ -27,7 +30,7 @@ export default class ProductController {
       ProductModel.addProduct(name, desc, price, imageUrl);
 
       const products = await ProductModel.get();
-      res.render("index", { products });
+      res.render("index", { products, userEmail: req.session.userEmail });
     } catch {}
   }
   async updatePage(req, res) {
@@ -39,6 +42,7 @@ export default class ProductController {
         res.render("updateproduct", {
           product: productFound, // Use `product` instead of `products`
           errorMessage: null,
+          userEmail: req.session.email,
         });
       } else {
         res.status(401).send("Page not found");
@@ -54,10 +58,11 @@ export default class ProductController {
       const { name, desc, price } = req.body;
       const imageUrl = "images/" + req.file.filename;
       ProductModel.updatepro(name, desc, price, imageUrl);
-
       const product = await ProductModel.get();
       res.render("index", { product });
-    } catch {}
+    } catch {
+      console.log("unable to change the data");
+    }
   }
   async deleteProduct(req, res) {
     try {

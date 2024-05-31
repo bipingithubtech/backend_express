@@ -31,6 +31,8 @@ import session from "express-session";
 import usercontroller from "./src/controller/userController.js";
 import uservalidation from "./src/MiddleWare/userValidation.js";
 import auth from "./src/MiddleWare/authMiddleware.js";
+import cookieParser from "cookie-parser";
+import lastTimevisted from "./src/MiddleWare/cokkies.js";
 
 const controller = new productController();
 const usercontrol = new usercontroller();
@@ -40,7 +42,8 @@ server.use(express.urlencoded({ extended: true }));
 server.set("view engine", "ejs");
 server.set("views", path.join(path.resolve(), "src", "views"));
 server.use(express.static(path.join(path.resolve(), "public")));
-
+server.use(cookieParser());
+server.use(lastTimevisted);
 server.use(
   session({
     secret: "keyboard cat",
@@ -66,6 +69,7 @@ server.get("/register", usercontrol.registrationForm);
 server.get("/login", usercontrol.gotologin);
 server.post("/login", usercontrol.postlogin);
 server.post("/register", uservalidation, usercontrol.postRegistration);
+server.get("/logout", usercontrol.logout);
 server.listen(3001, () => {
   console.log("Server is running on port 3001");
 });
